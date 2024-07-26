@@ -3,8 +3,9 @@ const hostname = "https://bot.slaycer.top"
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const fetchFIDE = async (page) => {
-    return await fetch(`${hostname}/api/players?std%5Bgte%5D=2100&sort_by=standard&order_by=desc&page=${page}&page_size=1`)
+    return await fetch(`${hostname}/api/players?std%5Bgte%5D=2100&sort_by=standard&order_by=desc&page=${page}&page_size=100`)
         .then(res => {
+            console.log(res.status)
             return res.json()
         })
         .then(json => json)
@@ -15,8 +16,6 @@ const fetchFIDE = async (page) => {
     let players = []
     let havepage = true
     while (havepage) {
-        //await delay(1000)
-        console.log(page)
         let data = await fetchFIDE(page)
 
         if (data.message) page += 1
